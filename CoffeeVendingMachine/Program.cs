@@ -1,8 +1,10 @@
 ﻿using CoffeeVendingMachine.Decorators.CoffeeTypes.Factories;
+using CoffeeVendingMachine.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace CoffeeVendingMachine
 {
@@ -10,8 +12,9 @@ namespace CoffeeVendingMachine
     {
         private static readonly List<string> coffeeTypes = new List<string>() { "Latte", "Macchiato", "Espresso", "Americano", "Cappucino" };
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+
             Console.WriteLine("Coffee Vending Machine");
             Console.WriteLine();
 
@@ -38,7 +41,7 @@ namespace CoffeeVendingMachine
                     PickPredefinedListOfCoffeeTypes();
                     break;
                 case ConsoleKey.D2:
-                    PickDifferentTypesOfCoffeeFrom3rdPartySources();
+                    await PickDifferentTypesOfCoffeeFromThirdPartySources();
                     break;
                 case ConsoleKey.D3:
                     break;
@@ -47,6 +50,7 @@ namespace CoffeeVendingMachine
                     break;
             }
         }
+ 
 
         private static void PickPredefinedListOfCoffeeTypes()
         {
@@ -75,13 +79,19 @@ namespace CoffeeVendingMachine
             }
         }
 
-        private static void PickDifferentTypesOfCoffeeFrom3rdPartySources()
+        private static async Task PickDifferentTypesOfCoffeeFromThirdPartySources()
         {
-            var externalCoffeeTypes = new List<string>();
+            using HttpClient client = new();
 
-            foreach (var coffeeType in externalCoffeeTypes)
+            var thirdPartyCoffees = await ApiClient.GetCoffeesAsync(client);
+
+            Console.WriteLine();
+            Console.WriteLine("Pick a coffee type:");
+            Console.WriteLine();
+
+            foreach (var coffee in thirdPartyCoffees.Select(c => c.Type))
             {
-                Console.WriteLine("{0}", coffeeType);
+                Console.WriteLine("{0}", coffee);
             }
 
             Console.WriteLine();
@@ -89,10 +99,10 @@ namespace CoffeeVendingMachine
 
             var inputSelectedCoffee = Console.ReadLine();
 
-            if (externalCoffeeTypes.Any(c => c == inputSelectedCoffee))
+            if (thirdPartyCoffees.Any(c => c.Type == inputSelectedCoffee))
             {
-                var coffee = CoffeeFactory.CreateCoffee(inputSelectedCoffee);
-                Console.WriteLine($"You selected: {coffee.GetDescription()}");
+                var thirdPartyCoffee = thirdPartyCoffees.Single(c => c.Type == inputSelectedCoffee);
+                Console.WriteLine($"You selected: {thirdPartyCoffee.GetDescription()}");
                 Console.WriteLine("Preparing your coffee...");
             }
             else
@@ -100,5 +110,6 @@ namespace CoffeeVendingMachine
                 Console.WriteLine("Invalid coffee type entered. Please enter a valid cofee type");
             }
         }
+
     }
 }

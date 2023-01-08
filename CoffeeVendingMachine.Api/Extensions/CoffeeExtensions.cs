@@ -1,13 +1,14 @@
-﻿using StarbucksCoffee.Api.DataAccessLayer.Entities;
+﻿using CoffeeVendingMachine.Shared.Models;
+using StarbucksApi.DataAccessLayer.Entities;
 using System.Linq;
 
-namespace StarbucksCoffee.Api.Extensions
+namespace StarbucksApi.Extensions
 {
-    public static class MyExtensions
+    public static class CoffeeExtensions
     {
-        public static Models.StarbucksCoffee ToStarbucksCoffee(this Coffee coffee)
+        public static ThirdPartyCoffee ToThirdPartyCoffee(this Coffee coffee)
         {
-            return new Models.StarbucksCoffee
+            return new ThirdPartyCoffee
             {
                 Type = coffee.Type,
                 Characteristics = coffee.Characteristics.Select(c => c.Description).ToList()

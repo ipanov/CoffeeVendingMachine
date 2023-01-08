@@ -1,5 +1,5 @@
-using StarbucksCoffee.Api.DataAccessLayer;
-using StarbucksCoffee.Api.Services;
+using StarbucksApi.DataAccessLayer;
+using StarbucksApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 
-namespace Starbucks.Api
+namespace StarbucksApi
 {
     public class Startup
     {
@@ -27,9 +27,9 @@ namespace Starbucks.Api
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "StarbucksCoffee.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "StarbucksApi", Version = "v1" });
             });
-            services.AddTransient<IStarbucksCoffeesService, StarbucksCoffeeService>();
+            services.AddTransient<IStarbucksCoffeesService, StarbucksCoffeesService>();
 
             services.AddDbContext<StarbucksCoffeeDbContext>(
                 options => options.UseSqlite("name=ConnectionStrings:StarbucksCoffee"));
@@ -50,7 +50,7 @@ namespace Starbucks.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "StarbucksCoffee.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "StarbucksApi v1"));
             }
 
             app.UseRouting();

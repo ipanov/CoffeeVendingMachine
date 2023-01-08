@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using StarbucksCoffee.Api.Services;
+using StarbucksApi.Services;
+using CoffeeVendingMachine.Shared.Models;
 
-namespace StarbucksCoffee.Api.Controllers
+namespace StarbucksApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -12,14 +13,14 @@ namespace StarbucksCoffee.Api.Controllers
         private readonly IStarbucksCoffeesService _service;
         private readonly ILogger<StarbucksCoffeesController> _logger;
 
-        public StarbucksCoffeesController(ILogger<StarbucksCoffeesController> logger, StarbucksCoffeeService service)
+        public StarbucksCoffeesController(ILogger<StarbucksCoffeesController> logger, IStarbucksCoffeesService service)
         {
             _service = service;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<ActionResult<Models.StarbucksCoffee>> Get()
+        public async Task<ActionResult<ThirdPartyCoffee>> Get()
         {
             var coffees = await _service.GetCoffees();
             return Ok(coffees);

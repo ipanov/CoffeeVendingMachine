@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Starbucks.Api": {
+    "StarbucksApi.": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

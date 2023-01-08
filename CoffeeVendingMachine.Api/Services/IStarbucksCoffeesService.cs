@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using CoffeeVendingMachine.Shared.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace StarbucksCoffee.Api.Services
+namespace StarbucksApi.Services
 {
     public interface IStarbucksCoffeesService
     {
-        public Task<IEnumerable<Models.StarbucksCoffee>> GetCoffees();
+        public Task<IEnumerable<ThirdPartyCoffee>> GetCoffees();
     }
 }
