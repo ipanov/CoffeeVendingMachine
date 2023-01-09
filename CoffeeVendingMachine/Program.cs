@@ -1,5 +1,4 @@
 ﻿using CoffeeVendingMachine.Decorators.Characteristics;
-using CoffeeVendingMachine.Decorators.CoffeeTypes;
 using CoffeeVendingMachine.Decorators.CoffeeTypes.Factories;
 using CoffeeVendingMachine.Services;
 using CoffeeVendingMachine.Shared.Interfaces;
@@ -9,8 +8,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Xml;
-using static System.Net.WebRequestMethods;
 
 namespace CoffeeVendingMachine
 {
@@ -20,41 +17,46 @@ namespace CoffeeVendingMachine
 
         static async Task Main(string[] args)
         {
-
-            Console.WriteLine("Coffee Vending Machine");
-            Console.WriteLine();
-
-            ConsoleKey response;
-            do
+            while (true)
             {
-                Console.WriteLine("Please choose an option");
+                Console.WriteLine("Coffee Vending Machine");
                 Console.WriteLine();
-                Console.WriteLine("1. Pick from a predefined list of Coffee types");
-                Console.WriteLine("2. Pick different types of Coffee from 3rd party sources");
-                Console.WriteLine("3. Customize a basic Coffee, create unique types of Coffee");
+                Console.WriteLine("Press Ctrl-C to exit");
                 Console.WriteLine();
-                Console.WriteLine("Enter option to select:");
 
-                response = Console.ReadKey().Key;
-                if (response != ConsoleKey.Enter)
+                ConsoleKey response;
+                do
+                {
+                    Console.WriteLine("Please choose an option");
                     Console.WriteLine();
+                    Console.WriteLine("1. Pick from a predefined list of Coffee types");
+                    Console.WriteLine("2. Pick different types of Coffee from 3rd party sources");
+                    Console.WriteLine("3. Customize a basic Coffee, create unique types of Coffee");
+                    Console.WriteLine();
+                    Console.WriteLine("Enter option to select:");
 
-            } while (response != ConsoleKey.D1 && response != ConsoleKey.D2 && response != ConsoleKey.D3);
+                    response = Console.ReadKey().Key;
+                    if (response != ConsoleKey.Enter)
+                        Console.WriteLine();
 
-            switch (response)
-            {
-                case ConsoleKey.D1:
-                    PickPredefinedListOfCoffeeTypes();
-                    break;
-                case ConsoleKey.D2:
-                    await PickDifferentTypesOfCoffeeFromThirdPartySources();
-                    break;
-                case ConsoleKey.D3:
-                    CustomizeBasicCoffee();
-                    break;
-                default:
-                    Console.WriteLine("Invalid option value");
-                    break;
+                } while (response != ConsoleKey.D1 && response != ConsoleKey.D2 && response != ConsoleKey.D3);
+
+                switch (response)
+                {
+                    case ConsoleKey.D1:
+                        PickPredefinedListOfCoffeeTypes();
+                        break;
+                    case ConsoleKey.D2:
+                        await PickDifferentTypesOfCoffeeFromThirdPartySources();
+                        break;
+                    case ConsoleKey.D3:
+                        CustomizeBasicCoffee();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option value");
+                        break;
+                }
+                Console.WriteLine();
             }
         }
 
@@ -147,7 +149,7 @@ namespace CoffeeVendingMachine
             {
                 Type characteristic = characteristics.Single(c => c.Name == inputCharacteristic);
 
-                var instance = (ICoffee)Activator.CreateInstance(characteristic, coffee);
+                var instance = Activator.CreateInstance(characteristic, coffee);
 
                 ConsoleKey response;
                 do
@@ -164,10 +166,10 @@ namespace CoffeeVendingMachine
                 {
                     case ConsoleKey.Y:
                         characteristics.Remove(characteristic);
-                        CustomizeCharacteristics(instance, characteristics);
+                        CustomizeCharacteristics((ICoffee)instance, characteristics);
                         break;
                     case ConsoleKey.N:
-                        Console.WriteLine($"Preparing your {instance.GetDescription()}...");
+                        Console.WriteLine($"Preparing your {((ICoffee)instance).GetDescription()}...");
                         break;
                 }
             }

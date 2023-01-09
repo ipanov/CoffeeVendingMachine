@@ -6,7 +6,7 @@ namespace CoffeeVendingMachine.Decorators.CoffeeTypes
     {
         public CustomCoffee(ICoffee decoratedCoffee, string type) : base(decoratedCoffee)
         {
-            Type = $"{type} {decoratedCoffee.Type}";
+            Type = string.Format("{0} {1}", type, decoratedCoffee.Type);
             decoratedCoffee.Characteristics.ForEach(c => Characteristics.Add(c));
         }
     }
