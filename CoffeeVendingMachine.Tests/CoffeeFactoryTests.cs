@@ -1,16 +1,16 @@
 using CoffeeVendingMachine.Decorators.CoffeeTypes;
-using CoffeeVendingMachine.Decorators.CoffeeTypes.Factories;
+using CoffeeVendingMachine.Factories;
 using Xunit;
 
 namespace CoffeeVendingMachine.Tests
 {
-    public class UnitTest1
+    public class CoffeeFactoryTests
     {
         [Fact]
         public void CreateCoffee_CreatesEspresso()
         {
             /// Arrange
-            var type = "Latte";
+            var type = "Espresso";
 
             //Act
             var result = CoffeeFactory.CreateCoffee(type);
@@ -18,19 +18,5 @@ namespace CoffeeVendingMachine.Tests
             //Assert
             Assert.IsType<Espresso>(result);
         }
-
-        [Fact]
-        public void CreateCoffee_CreatesCustomCoffee()
-        {
-
-        }
-
-
-        [Fact]
-        public void CreateCoffee_ThrowsException()
-        {
-
-        }
-
     }
 }

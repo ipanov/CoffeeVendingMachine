@@ -1,8 +1,8 @@
 ﻿using CoffeeVendingMachine.Shared.Interfaces;
 using CoffeeVendingMachine.Models;
-using System;
+using CoffeeVendingMachine.Decorators.CoffeeTypes;
 
-namespace CoffeeVendingMachine.Decorators.CoffeeTypes.Factories
+namespace CoffeeVendingMachine.Factories
 {
     public static class CoffeeFactory
     {
@@ -22,7 +22,7 @@ namespace CoffeeVendingMachine.Decorators.CoffeeTypes.Factories
                     return new Cappucino(new Coffee());
                 default:
                     return new CustomCoffee(basicCoffee, type);
-                  
+
             }
         }
     }

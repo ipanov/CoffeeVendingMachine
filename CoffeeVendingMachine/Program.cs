@@ -1,5 +1,5 @@
 ﻿using CoffeeVendingMachine.Decorators.Characteristics;
-using CoffeeVendingMachine.Decorators.CoffeeTypes.Factories;
+using CoffeeVendingMachine.Factories;
 using CoffeeVendingMachine.Services;
 using CoffeeVendingMachine.Shared.Interfaces;
 using System;
