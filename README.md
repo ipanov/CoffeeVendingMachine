@@ -4,7 +4,13 @@ This project was created for the purpose of Damilah tehcnical interview
 
 ## Starting the appilication
 
-Simply open and run the included solution in VS 2022
+Open the included solution in VS 2022
+
+Set both CofeeVendingMachine and StarbucksApi as 'Multiple Start Projects' in the solution properties like in the startup_settings.jpg screenshot
+
+The git ignore does not commit the local changes, so this needs to be done manually
+
+Of course it is possible to run them standalone but this might require additional settings of CORS
 
 ### Technical implementation
 
