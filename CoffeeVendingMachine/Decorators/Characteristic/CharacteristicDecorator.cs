@@ -5,9 +5,9 @@ namespace CoffeeVendingMachine.Decorators.Characteristics
 {
     public abstract class CharacteristicDecorator : ICoffee
     {
-        private readonly ICoffee _decoratedCoffee;
+        protected readonly ICoffee _decoratedCoffee;
         public string Type { get; set; }
-        public List<string> Characteristics { get; set; }
+        public List<string> Characteristics { get; set; } = new List<string>();
 
         public CharacteristicDecorator(ICoffee coffee)
         {
@@ -16,7 +16,7 @@ namespace CoffeeVendingMachine.Decorators.Characteristics
 
         public string GetDescription()
         {
-            var characteristicsDescription = string.Join(", ", _decoratedCoffee.Characteristics);
+            var characteristicsDescription = string.Join(", ", Characteristics);
 
             return string.Format("{0}, {1}", Type, characteristicsDescription);
         }

@@ -2,13 +2,12 @@
 
 namespace CoffeeVendingMachine.Decorators.CoffeeTypes
 {
-    public class Macchiato : BaseCoffee
+    public class CustomCoffee : BaseCoffee
     {
-        public Macchiato(ICoffee decoratedCoffee) : base(decoratedCoffee)
+        public CustomCoffee(ICoffee decoratedCoffee, string type) : base(decoratedCoffee)
         {
-            Type = "Macchiato";
+            Type = $"{type} {decoratedCoffee.Type}";
             decoratedCoffee.Characteristics.ForEach(c => Characteristics.Add(c));
-            Characteristics.Add("one pack of sugar");
         }
     }
 }

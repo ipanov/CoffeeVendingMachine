@@ -33,18 +33,25 @@ namespace CoffeeVendingMachine.Services
                     };
                     var coffees = JsonSerializer.Deserialize<List<ThirdPartyCoffee>>(responseBody, options);
 
-                    return coffees;
-                  
+                    if (coffees.Count > 0)
+                    {
+                        return coffees;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Third party coffee request failed. Choose another option");
+                        return new List<ICoffee>();
+                    }
                 }
                 catch (JsonException)
                 {
-                    Console.WriteLine("Starbucks coffee request failed. Choose another option");
+                    Console.WriteLine("Third party coffee request failed. Choose another option");
                     return new List<ICoffee>();
                 }
             }
             else
             {
-                Console.WriteLine("Starbucks coffee request failed. Choose another option");
+                Console.WriteLine("Third party coffee request failed. Choose another option");
                 return new List<ICoffee>();
             }
         }

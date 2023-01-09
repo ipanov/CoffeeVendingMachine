@@ -2,7 +2,7 @@
 
 namespace CoffeeVendingMachine.Decorators.CoffeeTypes
 {
-    public class Espresso : BaseCoffee, ICoffee
+    public class Espresso : BaseCoffee
     {
         public Espresso(ICoffee decoratedCoffee) : base(decoratedCoffee)
         {

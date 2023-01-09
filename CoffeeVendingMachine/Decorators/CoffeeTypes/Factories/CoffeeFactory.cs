@@ -7,7 +7,7 @@ namespace CoffeeVendingMachine.Decorators.CoffeeTypes.Factories
     public static class CoffeeFactory
     {
 
-        public static ICoffee CreateCoffee(string type)
+        public static ICoffee CreateCoffee(string type, ICoffee basicCoffee = null)
         {
             switch (type)
             {
@@ -22,7 +22,7 @@ namespace CoffeeVendingMachine.Decorators.CoffeeTypes.Factories
                 case "Cappucinno":
                     return new Cappucino(new Coffee());
                 default:
-                    throw new InvalidOperationException("Invalid Coffee Type value");
+                    return new CustomCoffee(basicCoffee, type);
             }
         }
     }
